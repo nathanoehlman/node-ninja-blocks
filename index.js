@@ -257,14 +257,14 @@ exports.app = function(opts) {
           var start, end;
 
           if (opts.start && opts.start instanceof Date) start = opts.start.getTime();
-          if (opts.start) qs.from = opts.start;
+          if (start) opts.from = opts.start;
           if (opts.end && opts.end instanceof Date) end = opts.end.getTime();
-          if (opts.end) qs.to = opts.end;
+          if (end) opts.to = opts.end;
 
           var opts = {
             url: uri + 'device/'+device+'/data',
             method: 'GET',
-            qs: _.extend(opts, {start: start, end: end}),
+            qs: opts,
             json: true
           };
 
