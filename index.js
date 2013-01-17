@@ -249,17 +249,18 @@ exports.app = function(opts) {
          */
         data: function(options, cb) {
 
-          if (typeof options === 'function') {
+         if (typeof options === 'function') {
             cb = options;
             options = {}
           }
 
-          var start, end;
+          var start = options.start,
+              end = options.end;
 
           if (options.start && options.start instanceof Date) start = options.start.getTime();
-          if (start) options.from = opts.start;
+          if (start) options.from = start;
           if (options.end && options.end instanceof Date) end = options.end.getTime();
-          if (end) options.to = opts.end;
+          if (end) options.to = end;
 
           var opts = {
             url: uri + 'device/'+device+'/data',
