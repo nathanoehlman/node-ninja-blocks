@@ -247,24 +247,24 @@ exports.app = function(opts) {
          * @param {Function} cb
          * @api public
          */
-        data: function(opts, cb) {
+        data: function(options, cb) {
 
-          if (typeof opts === 'function') {
-            cb = opts;
-            opts = {}
+          if (typeof options === 'function') {
+            cb = options;
+            options = {}
           }
 
           var start, end;
 
-          if (opts.start && opts.start instanceof Date) start = opts.start.getTime();
-          if (start) opts.from = opts.start;
-          if (opts.end && opts.end instanceof Date) end = opts.end.getTime();
-          if (end) opts.to = opts.end;
+          if (options.start && options.start instanceof Date) start = options.start.getTime();
+          if (start) options.from = opts.start;
+          if (options.end && options.end instanceof Date) end = options.end.getTime();
+          if (end) options.to = opts.end;
 
           var opts = {
             url: uri + 'device/'+device+'/data',
             method: 'GET',
-            qs: opts,
+            qs: options,
             json: true
           };
 
