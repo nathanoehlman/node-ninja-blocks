@@ -1,4 +1,5 @@
-var request = require('request'),
+var _ = require('lodash'),
+    request = require('request'),
     utils   = require(__dirname+'/lib/utils'),
     uri     = 'https://api.ninja.is/rest/v0/';
 
@@ -246,25 +247,24 @@ exports.app = function(opts) {
          * @param {Function} cb
          * @api public
          */
-        data: function(start, end, cb) {
+        data: function(opts, cb) {
 
-          if (typeof start === "function") {
-            cb = start;
-            start = false;
-          } else if (typeof end === "function") {
-            cb = end;
-            end = false;
+          if (typeof opts === 'function') {
+            cb = opts;
+            opts = {}
           }
 
-          if (start instanceof Date) start = start.getTime();
-          if (start) qs.from = start;
-          if (end instanceof Date) end = end.getTime();
-          if (end) qs.to = end;
+          var start, end;
+
+          if (opts.start && opts.start instanceof Date) start = opts.start.getTime();
+          if (opts.start) qs.from = opts.start;
+          if (opts.end && opts.end instanceof Date) end = opts.end.getTime();
+          if (opts.end) qs.to = opts.end;
 
           var opts = {
             url: uri + 'device/'+device+'/data',
             method: 'GET',
-            qs: qs,
+            qs: _.extend(opts, {start: start, end: end}),
             json: true
           };
 
