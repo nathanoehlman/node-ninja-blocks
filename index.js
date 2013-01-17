@@ -264,7 +264,7 @@ exports.app = function(opts) {
           var opts = {
             url: uri + 'device/'+device+'/data',
             method: 'GET',
-            qs: options,
+            qs: _.extend(qs, options),
             json: true
           };
 
